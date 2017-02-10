@@ -1,14 +1,14 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem
 
   //code here for sayHi
 
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay);
    });
-   
-and what you should write is the sayHi function that makes the code above work, 
-    
+
+and what you should write is the sayHi function that makes the code above work,
+
    var sayHi = function(str, cb){
     cb(str);
    }
@@ -16,7 +16,7 @@ and what you should write is the sayHi function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
+
 */
 
 
@@ -24,17 +24,28 @@ and what you should write is the sayHi function that makes the code above work,
 
   // Code Here
 
-  
+function first(array,func){
+  return func(array[0]);
+}
+
+
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
+
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName)
 });
 
 
 
+
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
+
+
+function last(array, func){
+  func(array[6]);
+}
 
 last(names, function(lastName){
   console.log('The last name in names is ' + lastName);
@@ -46,6 +57,10 @@ last(names, function(lastName){
 
   //Code Here
 
+function multiply(num1, num2, func){
+  return func((num1*num2));
+}
+
 
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
@@ -53,10 +68,16 @@ multiply(4, 3, function(answer){
 
 
 
-// 4. Write a function called contains that checks if a name exists in an array. 
+// 4. Write a function called contains that checks if a name exists in an array.
 // If it does, return true using the callback, if not return false.
 
-  //Code Here 
+  //Code Here
+
+function contains(arrayy,checkName,func){
+  if(arrayy.indexOf(checkName) >= 0){
+    return func(true);
+  }
+}
 
 contains(names, 'Colt', function(result){
   if(result === true){
@@ -68,20 +89,36 @@ contains(names, 'Colt', function(result){
 
 
 
-// 5. Write a function called uniq that takes the names array and removes all duplicates and returns 
+// 5. Write a function called uniq that takes the names array and removes all duplicates and returns
 // the callback function with the array of unique names.
 
     //Code Here
 
+function uniq(arrayy, func){
+  copy = [];
+  arrayy.map(function(x){
+    if(copy.indexOf(x)<=0){
+      copy.push(x);
+    } //if the name isn't in copy array, then push it into copy array
+  });
+  console.log(func(copy));
+}
 uniq(names, function(uniqArr){
+
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
 
-// 6. Write a function called each that takes in an array of names. For each item, use a callback 
+// 6. Write a function called each that takes in an array of names. For each item, use a callback
 // function to return the indices and item.
 
-    //Code Here 
+    //Code Here
+
+function each(arrayy, func){
+  for(var key in arrayy){
+    func(arrayy[key],key)
+  }
+}
 
 each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
@@ -89,10 +126,18 @@ each(names, function(item, indice){
 
 
 
-// 7. Write a function called getUserById that looks at the array of user objects (users) and searches for a user by ID 
+// 7. Write a function called getUserById that looks at the array of user objects (users) and searches for a user by ID
 // and returns that user.
 
  //Code Here
+ function getUserById(obj,Ry,func){
+   for(key in obj){
+     if(obj[key]['id'] === Ry){
+       return func(obj[key]);
+     }
+   }
+ }
+
 
 var users = [
   {
@@ -116,5 +161,5 @@ var users = [
 ];
 
 getUserById(users, '16t', function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address);
 });
