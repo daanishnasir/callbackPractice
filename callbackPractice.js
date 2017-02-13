@@ -44,7 +44,7 @@ first(names, function(firstName){
 
 
 function last(array, func){
-  func(array[6]);
+  func(array[array.length-1]);
 }
 
 last(names, function(lastName){
@@ -77,6 +77,7 @@ function contains(arrayy,checkName,func){
   if(arrayy.indexOf(checkName) >= 0){
     return func(true);
   }
+  return func(false);
 }
 
 contains(names, 'Colt', function(result){
@@ -97,11 +98,12 @@ contains(names, 'Colt', function(result){
 function uniq(arrayy, func){
   copy = [];
   arrayy.map(function(x){
-    if(copy.indexOf(x)<=0){
+    if(copy.indexOf(x) === -1){
       copy.push(x);
     } //if the name isn't in copy array, then push it into copy array
+
   });
-  console.log(func(copy));
+  return func(copy);
 }
 uniq(names, function(uniqArr){
 
@@ -114,9 +116,9 @@ uniq(names, function(uniqArr){
 
     //Code Here
 
-function each(arrayy, func){
-  for(var key in arrayy){
-    func(arrayy[key],key)
+function each(array, cb){
+  for(var key in array){
+    cb(array[key], parseInt(key));
   }
 }
 
